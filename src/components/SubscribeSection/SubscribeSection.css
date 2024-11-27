@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+.subscribe {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.subscribe__support {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 35.38px;
+  text-align: center;
+  color: #eb801d;
+  margin-bottom: 30px;
+}
+
+.subscribe__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 36px;
+  text-align: center;
+  color: #1c1c1e;
+  margin-bottom: 27px;
+}
+
+.subscribe__subtitle {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 44.22px;
+  text-align: center;
+  color: #1c1c1e;
+  margin-bottom: 62px;
+}
+
+.subscribe__form {
+  padding: 22px 32px;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px 0px rgba(54, 58, 120, 0.1);
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.subscribe__input {
+  border: none;
+  outline: none;
+  font-family: "Nunito Sans";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 29.48px;
+  width: 100%;
+}
+
+@media screen and (max-width: 920px) {
+  .subscribe {
+    margin-top: 50px;
+  }
+
+  .subscribe__support {
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 25px;
+  }
+
+  .subscribe__title {
+    font-size: 25px;
+    line-height: 30px;
+    margin-bottom: 20px;
+  }
+
+  .subscribe__subtitle {
+    font-size: 25px;
+    line-height: 30px;
+    margin-bottom: 42px;
+  }
+
+  .subscribe__form {
+    padding: 12px 18px;
+  }
+
+  .subscribe__input {
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .subscribe__input-img {
+    width: 20px;
+  }
+}

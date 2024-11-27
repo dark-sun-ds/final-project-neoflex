@@ -1,0 +1,62 @@
+.choose-design {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content min-content;
+  gap: 35px;
+  grid-template-areas:
+    "title img"
+    "button img";
+  margin-top: 132px;
+}
+
+.choose-design__title {
+  font-family: Ubuntu;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 50px;
+  color: #1c1c1e;
+  grid-area: title;
+}
+.choose-design__button {
+  grid-area: button;
+}
+
+.choose-design__img {
+  grid-area: img;
+  max-width: 520px;
+  width: 100%;
+  justify-self: end;
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 950px) {
+  .choose-design {
+    margin-top: 62px;
+  }
+
+  .choose-design__title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .choose-design {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content;
+    gap: 35px;
+    grid-template-areas:
+      "title"
+      "img"
+      "button";
+    justify-items: center;
+  }
+  
+  .choose-design__img {
+    justify-self: center;
+  }
+
+  .choose-design__title {
+    text-align: center;
+  }
+}

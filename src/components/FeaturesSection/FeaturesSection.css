@@ -1,0 +1,124 @@
+.features {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: repeat(3, min-content);
+  grid-template-areas:
+    "img title"
+    "img description"
+    "img list";
+  gap: 15px 75px;
+  margin-top: 112px;
+}
+
+.features__img {
+  width: 100%;
+  grid-area: img;
+  align-self: center;
+}
+
+.features__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 25px;
+}
+
+.features__title {
+  grid-area: title;
+  font-family: Rubik;
+  font-size: 35px;
+  font-weight: 500;
+  line-height: 50px;
+  color: #0b132a;
+}
+
+.features_subtitle {
+  grid-area: description;
+}
+
+.features_subtitle,
+.features__list {
+  font-family: Rubik;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  color: #4f5665;
+}
+
+.features__list {
+  grid-area: list;
+  font-size: 14px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.features__item::before {
+  content: url("../../assets/li.svg");
+  margin-right: 18px;
+  vertical-align: middle;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (max-width: 920px) {
+  .features {
+    margin-top: 72px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, min-content);
+    grid-template-areas:
+      "title title"
+      "img description"
+      "img list";
+    gap: 15px 35px;
+  }
+
+  .features__img {
+    max-width: 500px;
+    justify-self: center;
+  }
+
+  .features__title {
+    font-size: 25px;
+    justify-self: center;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .features {
+    margin-top: 72px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title title"
+      "description description"
+      "img list";
+    gap: 15px 35px;
+  }
+  .features_subtitle {
+    text-align: center;
+  }
+  .features__img {
+    max-width: 300px;
+    justify-self: center;
+  }
+
+  .features__list {
+    align-self: center;
+  }
+}
+@media screen and (max-width: 500px) {
+  .features {
+    grid-template-areas:
+      "title"
+      "description"
+      "list";
+  }
+
+    .features__img {
+    display: none;
+  }
+}

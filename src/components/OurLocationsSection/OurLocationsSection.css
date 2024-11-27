@@ -1,0 +1,34 @@
+.locations {
+  margin-top: 48px;
+  font-weight: 500;
+  line-height: 50px;
+  text-align: center;
+  color: #1c1c1e;
+}
+
+.locations__title {
+  font-size: 30px;
+}
+
+.locations__subtitle {
+  font-size: 16px;
+}
+
+.locations__img {
+  margin-top: 48px;
+  width: 100%;
+}
+
+@media screen and (max-width: 920px) {
+  .locations {
+    line-height: 40px;
+  }
+
+  .locations__title {
+    font-size: 25px;
+  }
+
+  .locations__img {
+    margin-top: 35px;
+  }
+}

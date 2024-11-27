@@ -1,0 +1,47 @@
+.header {
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 25px;
+}
+
+.header-logo {
+  font-family: Ubuntu;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 26.88px;
+  color: #b4387a;
+  text-decoration: none;
+}
+
+.header__buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.header__humburger-btn {
+  /* display: none; */
+  border: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.header__humburger-btn img {
+  width: 100%;
+}
+
+@media screen and (min-width: 920px) {
+  .header__humburger-btn {
+    display: none;
+  }
+}
