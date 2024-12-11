@@ -1,78 +1,105 @@
-// const targetCurrencies = ["USD", "EUR", "CNY", "UAH", "JPY", "PLN"];
-// const baseCurrency = "RUB";
-// const converter = document.querySelector(".converter__currencies");
-// type TCurrencyResults = {
-//   success: boolean;
-//   validationMessage: string;
-//   result: {
-//     from: string;
-//     to: string;
-//     amountToConvert: number;
-//     convertedAmount: number;
-//   };
-// };
+import axios from "axios";
 
-// let currencyResults: TCurrencyResults[] = [];
-// let currencyPromises: Promise<TCurrencyResults>[] = [];
-// updateRates();
+const baseCurrency = "RUB";
+type TCurrencyResults = {
+  result: string;
+  documentation: string;
+  termsOfUse: string;
+  timeLastUpdateUnix: number;
+  timeLastUpdateUtc: string;
+  timeNextUpdateUtc: number;
+  baseCode: string;
+  conversion_rates: {
+    [currency: string]: number;
+  };
+};
 
-// function updateRates() {
-//   currencyResults = [];
-//   currencyPromises = [];
-//   // Создаю промисы для каждого запроса
-//   targetCurrencies.forEach((currency) => {
-//     currencyPromises.push(getCurrencyRates(currency, baseCurrency));
-//   });
+let timerId: number;
+let timeout: string | null;
+let currensies: string | null;
+const currenciesCodes = ["USD", "EUR", "CNY", "UAH", "JPY", "PLN"];
+export const filteredRates: { [currency: string]: number } = {};
+let result: TCurrencyResults;
 
-//   // Жду выполнения всех запросов
-//   Promise.all(currencyPromises)
-//     .then((results) => {
-//       // Results - массив, элементы которого результат выполнения кааждого запроса
-//       currencyResults.push(...results); // Добавляю результаты в массив ответов
-//       console.log(currencyResults);
+// функция сохраняет текущие курсы валют в localStorage
+// и время до следующего запроса курсов,
+// таким образом при перезагрузке страницы время не сбрасывается
 
-//       showCurrencies();
-//     })
-//     .catch((error) => console.error(error));
+async function getCurrencyRates(baseCurrency: string) {
+  const options = {
+    method: "GET",
+    url: `https://v6.exchangerate-api.com/v6/9b6cc22ae23f084cb7c32b57/latest/${baseCurrency}`,
+  };
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-//   // Перезапускаю функцию через 15 минут
-//   setTimeout(updateRates, 15 * 60 * 1000);
-// }
+async function updateRates(
+  setCurrencyResults: (rates: { [currency: string]: number }) => void
+) {
+  try {
+    result = await getCurrencyRates(baseCurrency);
+    // Result - результат выполнения запроса
+    console.log(result);
+    localStorage.setItem("currencies", JSON.stringify(result));
 
-// async function getCurrencyRates(targetCurrency: string, baseCurrency: string) {
-//   const options = {
-//     method: "GET",
-//     url: "https://currency-converter18.p.rapidapi.com/api/v1/convert",
-//     params: {
-//       from: targetCurrency,
-//       to: baseCurrency,
-//       amount: "1",
-//     },
-//     headers: {
-//       "x-rapidapi-key": "3ecf27eb86mshae87dbdec14138bp16c665jsn0c075d4bb7bd",
-//       "x-rapidapi-host": "currency-converter18.p.rapidapi.com",
-//     },
-//   };
-//   try {
-//     const response = await axios.request(options);
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+    processRates(result, setCurrencyResults);
+  } catch (error) {
+    console.error(error);
+  }
+  timerId = setTimeout(updateRates, 15 * 60 * 1000);
+  localStorage.setItem(
+    "timeout",
+    String(new Date().getTime() + 15 * 60 * 1000)
+  );
+}
+export function init(
+  setCurrencyResults: (rates: { [currency: string]: number }) => void
+) {
+  timeout = localStorage.getItem("timeout");
+  currensies = localStorage.getItem("currencies");
+  console.log("1.", { timeout, currensies });
 
-// export function showCurrencies() {
-//   converter.innerHTML = currencyResults
-//     .map((item) => {
-//       console.log(item);
+  if (currensies == "[]" || !currensies) {
+    updateRates(setCurrencyResults);
+  }
 
-//       return `<div class="converter__currency">
-//               <p class="converter__currency-title">${item.result.from}:</p>
-//               <p class="converter__currency-rate">${item.result.convertedAmount.toFixed(
-//                 2
-//               )}</p>
-//             </div>`;
-//     })
-//     .join("");
-// }
-export default 0;
+  if (currensies && new Date().getTime() < Number(timeout)) {
+    clearTimeout(timerId);
+    const remainingTime = Number(timeout) - new Date().getTime();
+    timerId = setTimeout(updateRates, remainingTime);
+    localStorage.setItem(
+      "timeout",
+      (new Date().getTime() + remainingTime).toString()
+    );
+    console.log(
+      "timeout doesn't expired ",
+      remainingTime / 1000,
+      " seconds left"
+    );
+    processRates(JSON.parse(currensies), setCurrencyResults);
+  } else if (currensies && new Date().getTime() >= Number(timeout)) {
+    console.log("timeout expired");
+    updateRates(setCurrencyResults);
+  }
+}
+
+export function processRates(
+  data: TCurrencyResults,
+  setCurrencyResults: (rates: { [currency: string]: number }) => void
+) {
+  currenciesCodes.forEach((code: string) => {
+    if (currenciesCodes.includes(code)) {
+      filteredRates[code] = 1 / data.conversion_rates[code];
+    }
+  });
+  console.log("processRates called");
+
+  setCurrencyResults(filteredRates);
+
+  // console.log("Filtered Rates:", filteredRates);
+}

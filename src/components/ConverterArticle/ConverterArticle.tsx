@@ -1,32 +1,28 @@
+import React, { FC } from "react";
 import "./ConverterArticle.css";
-import bank from "../../assets/rate-img.svg";
-export const ConverterArticle = () => {
-  const currencyResults = [
-    {
-      title: "USD",
-      rate: 199,
-    },
-    {
-      title: "EUR",
-      rate: 19,
-    },
-    {
-      title: "CNY",
-      rate: 93,
-    },
-    {
-      title: "UAH",
-      rate: 23,
-    },
-    {
-      title: "JPY",
-      rate: 0.54,
-    },
-    {
-      title: "PLN",
-      rate: 3.5,
-    },
-  ];
+import { init } from "./ConverterArticle";
+import { useState, useEffect } from "react";
+
+type CurrencyResult = { [key: string]: number };
+export const ConverterArticle:FC = () => {
+  const [currencyResults, setCurrencyResults] = useState<CurrencyResult>({});
+  const currencyList: React.JSX.Element[] = [];
+
+  useEffect(() => {
+    init(setCurrencyResults);
+    console.log("init called");
+  }, [currencyResults]);
+
+  for (const code in currencyResults) {
+    currencyList.push(
+      <li className="converter__currency" key={code} role="option">
+        <p className="converter__currency-title">{code}:</p>
+        <p className="converter__currency-rate">
+          {currencyResults[code].toFixed(2)}
+        </p>
+      </li>
+    );
+  }
 
   return (
     <article
@@ -42,26 +38,14 @@ export const ConverterArticle = () => {
       </p>
       <p className="converter__subtitle">Currency</p>
       <ul className="converter__currencies" role="listbox">
-        {currencyResults.map((item, index) => (
-          <li
-            className="converter__currency"
-            key={item.title}
-            role="option"
-            aria-labelledby={"currency-title-" + index}
-          >
-            <p
-              className="converter__currency-title"
-              id={"currency-title-" + index}
-            >
-              {item.title}:
-            </p>
-            <p className="converter__currency-rate">{item.rate.toFixed(2)}</p>
-          </li>
-        ))}
+        {currencyList}
       </ul>
-      <img className="converter__img" src={bank} alt="bank" />
+      <img
+        className="converter__img"
+        src="src/assets/rate-img.svg"
+        alt="bank"
+      />
       <p className="converter__all-courses">All courses</p>
     </article>
   );
 };
-

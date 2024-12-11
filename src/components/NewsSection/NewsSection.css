@@ -1,0 +1,36 @@
+.news {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1300px;
+  margin-top: 48px;
+    font-weight: 500;
+  line-height: 50px;
+  text-align: center;
+}
+
+.news__title {
+  font-size: 30px;
+}
+
+.news__subtitle {
+  font-size: 16px;
+
+  color: #2d3748;
+  margin-top: 8px;
+  margin-bottom: 46px;
+}
+
+@media screen and (max-width: 920px) {
+  .news {
+    line-height: 40px;
+  }
+
+  .news__title {
+    font-size: 25px;
+  }
+
+.news__subtitle {
+    margin-bottom: 20px;
+  }
+}
