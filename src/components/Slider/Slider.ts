@@ -23,13 +23,15 @@ export type NewsArticle = {
 
 type SetArticles = React.Dispatch<React.SetStateAction<NewsArticle[]>>;
 
-let result: NewsArticleAnswer[] | undefined = [];
+let result: NewsArticleAnswer[] = [];
 let timerId: number;
+const newsAmount = 21;
 
 export async function fetchNews() {
+  const newsBatch = 100;
   const options = {
     method: "GET",
-    url: "https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=21",
+    url: `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${newsBatch}`,
     headers: {
       "x-api-key": "187a157964944d64852acbb3c9556ec1",
     },
@@ -45,11 +47,24 @@ export async function fetchNews() {
   }
 }
 
+function filterNews(news: NewsArticleAnswer[]): NewsArticleAnswer[] {
+  const filteredNews = news.filter((article) => {
+    return (
+      article.description !== null &&
+      article.description !== "[Removed]" &&
+      article.title !== "[Removed]"
+    );
+  });
+  return filteredNews.slice(0, newsAmount);
+}
+
 export async function updateNews(setArticles: SetArticles) {
   try {
-    result = await fetchNews();
+    result = filterNews((await fetchNews()) || []);
     localStorage.setItem("news", JSON.stringify(result));
-    if (!result) throw new Error("News fetch failed");
+    if (!result) {
+      throw new Error("News fetch failed");
+    }
 
     timerId = setTimeout(updateNews, 15 * 60 * 1000);
     localStorage.setItem(
@@ -57,9 +72,7 @@ export async function updateNews(setArticles: SetArticles) {
       String(new Date().getTime() + 15 * 60 * 1000)
     );
 
-    console.log("update");
-
-    setArticles(processNews(result));
+    setArticles(() => processNews(result));
   } catch (error) {
     console.error(error);
   }
@@ -72,7 +85,6 @@ function processNews(news: NewsArticleAnswer[]) {
     url: article.url,
     description: article.description,
   }));
-  console.log("process");
 
   return processedNews;
 }
@@ -82,13 +94,9 @@ export function init(setArticles: SetArticles) {
   const news: NewsArticleAnswer[] = newsLS ? JSON.parse(newsLS) : [];
   const newsTimeout = localStorage.getItem("news-timeout");
 
-  console.log("1.", { newsTimeout, news });
-
-  if (!news || news.length === 0)  {
+  if (!news || news.length === 0) {
     updateNews(setArticles);
-  }
-
-  if (news && new Date().getTime() < Number(newsTimeout)) {
+  } else if (news && new Date().getTime() < Number(newsTimeout)) {
     clearTimeout(timerId);
     const remainingTime = Number(newsTimeout) - new Date().getTime();
     timerId = setTimeout(updateNews, remainingTime);
@@ -101,11 +109,9 @@ export function init(setArticles: SetArticles) {
       remainingTime / 1000,
       " seconds left"
     );
-    processNews(news);
+    setArticles(processNews(news));
   } else if (news && new Date().getTime() >= Number(newsTimeout)) {
     console.log("news-timeout expired");
     updateNews(setArticles);
   }
-
-  console.log("init");
 }

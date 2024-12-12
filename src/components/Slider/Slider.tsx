@@ -8,15 +8,16 @@ import right from "../../assets/Transfer_long_right_light.svg";
 export const Slider = () => {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const sliderRef = useRef<HTMLDivElement>(null);
+  // const imagesRefs = useRef<HTMLDivElement[]>([]);
   const prevBtnRef = useRef<HTMLButtonElement>(null);
   const nextBtnRef = useRef<HTMLButtonElement>(null);
   const [scrollCoord, setScrollCoord] = useState(0);
   const [firstImgWidth, setFirstImgWidth] = useState(0); // ширина прокрутки
 
-  useEffect(() => {
+  window.onload = () => {
     init(setArticles);
-  }, []);
-
+  };
+  
   useEffect(() => {
     // setState работает асинхронно, поэтому showHideBtns() вызывается здесь, а не в scrollSlider, иначе значение scrollCoord не изменится и prevBtn останется неактивной
     activateBtns();
@@ -34,6 +35,7 @@ export const Slider = () => {
       }
     }
     activateBtns();
+    console.log({ articles });
   }, [articles, firstImgWidth]);
 
   function scrollSlider(btnId: "prev" | "next") {
@@ -66,7 +68,7 @@ export const Slider = () => {
   }
 
   return (
-    <section >
+    <section>
       <div className="slider" ref={sliderRef}>
         {articles.map(({ title, description, url, urlToImage }, ind) => (
           <a key={ind} href={url} className="slider_link">
@@ -76,6 +78,7 @@ export const Slider = () => {
                   src={urlToImage ? urlToImage : placeholder}
                   alt=""
                   className="slider__item-img"
+                  // ref={imagesRefs}
                 />
                 <figcaption className="slider__item-title">{title}</figcaption>
               </figure>

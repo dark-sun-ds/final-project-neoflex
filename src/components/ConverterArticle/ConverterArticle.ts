@@ -44,7 +44,6 @@ async function updateRates(
   try {
     result = await getCurrencyRates(baseCurrency);
     // Result - результат выполнения запроса
-    console.log(result);
     localStorage.setItem("currencies", JSON.stringify(result));
 
     processRates(result, setCurrencyResults);
@@ -62,7 +61,6 @@ export function init(
 ) {
   timeout = localStorage.getItem("timeout");
   currensies = localStorage.getItem("currencies");
-  console.log("1.", { timeout, currensies });
 
   if (currensies == "[]" || !currensies) {
     updateRates(setCurrencyResults);
@@ -76,14 +74,14 @@ export function init(
       "timeout",
       (new Date().getTime() + remainingTime).toString()
     );
-    console.log(
-      "timeout doesn't expired ",
-      remainingTime / 1000,
-      " seconds left"
-    );
+    // console.log(
+    //   "timeout doesn't expired ",
+    //   remainingTime / 1000,
+    //   " seconds left"
+    // );
     processRates(JSON.parse(currensies), setCurrencyResults);
   } else if (currensies && new Date().getTime() >= Number(timeout)) {
-    console.log("timeout expired");
+    // console.log("timeout expired");
     updateRates(setCurrencyResults);
   }
 }
@@ -97,8 +95,6 @@ export function processRates(
       filteredRates[code] = 1 / data.conversion_rates[code];
     }
   });
-  console.log("processRates called");
-
   setCurrencyResults(filteredRates);
 
   // console.log("Filtered Rates:", filteredRates);

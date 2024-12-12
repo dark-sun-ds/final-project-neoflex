@@ -10,7 +10,6 @@ export const ConverterArticle:FC = () => {
 
   useEffect(() => {
     init(setCurrencyResults);
-    console.log("init called");
   }, [currencyResults]);
 
   for (const code in currencyResults) {
