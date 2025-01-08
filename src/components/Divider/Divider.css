@@ -1,0 +1,36 @@
+:root {
+  --left-position: 16px;
+}
+
+.common {
+  background-color: #80808033;
+  height: 4px;
+  margin-top: 8px;
+}
+
+.active {
+  position: absolute;
+  bottom: -12px;
+  left: calc(var(--left-position) * -1);
+  background-color: #7b7454;
+  margin-top: 2px;
+  height: 4px;
+  border-radius: 2px;
+  transition: left 0.3s ease-in-out;
+  width: calc(100% + 2 * var(--left-position));
+}
+
+.getCard {
+  width: 100%;
+}
+
+.formParent {
+  max-width: 220px;
+  height: 1px;
+}
+
+@media screen and (max-width: 530px) {
+  .tabBar {
+    display: none;
+  }
+}

@@ -1,0 +1,93 @@
+.form {
+  background-color: white;
+  border-radius: 28px;
+  box-shadow: 0px 2px 4px 0px #00000033;
+  padding: 32px;
+}
+
+.customize {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "heading amount"
+    "label amount";
+  max-width: 100%;
+  width: 100%;
+}
+
+.customize__heading {
+  grid-area: heading;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.customize__title {
+  grid-area: title;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.customize__step {
+  grid-area: step;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.customize__label {
+  grid-area: label;
+  margin-top: 32px;
+}
+
+.div {
+  width: 1px;
+  height: 100%;
+  border-left: 1px dashed #80808066;
+  margin: 0 40px;
+}
+
+.customize-amount {
+  grid-area: amount;
+  display: flex;
+}
+
+.customize__amount-title,
+.contact-info__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.customize__amount-value {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.contact-info {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.contact-info__inputs {
+  margin-top: 26px;
+  flex: 1 0 300px;
+  flex-grow: 1;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.label-wrapper {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #1a202c;
+  display: inline-block;
+  max-width: 100%;
+  flex: 1 0 250px;
+}

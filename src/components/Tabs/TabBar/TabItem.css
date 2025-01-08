@@ -1,0 +1,14 @@
+.tab-item {
+    margin: 0 16px;
+    width: max-content;
+    cursor: pointer;
+    position: relative;
+}
+
+.tab-title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #7B7454;
+;
+}

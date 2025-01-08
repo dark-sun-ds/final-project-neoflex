@@ -1,0 +1,31 @@
+.table {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  border-collapse: collapse;
+}
+
+.table__row {
+  border-bottom: 1px solid #7f92ac;
+}
+
+.table__row:last-child {
+  border-bottom: none;
+}
+
+.table__title {
+  color: black;
+  padding: 24px 70px 24px 0;
+}
+
+.table__description {
+  color: #434343;
+  padding: 24px 0;
+}
+
+@media screen and (max-width: 500px) {
+  .table__title {
+    padding: 24px 30px 24px 0;
+} 
+}

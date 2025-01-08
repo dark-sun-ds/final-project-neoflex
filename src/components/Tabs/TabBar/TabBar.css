@@ -1,0 +1,13 @@
+.tab-bar {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: row;
+  row-gap: 20px;
+}
+
+@media screen and (max-width: 530px) {
+  .tab-bar {
+    flex-direction: column;
+    align-items: center;
+  }
+}

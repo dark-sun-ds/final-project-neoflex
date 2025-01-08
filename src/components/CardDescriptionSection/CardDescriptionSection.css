@@ -1,0 +1,172 @@
+.description {
+  margin-top: 20px;
+  border-radius: 29px;
+  background: linear-gradient(
+    180.8deg,
+    rgba(203, 213, 224, 0.624) 34.33%,
+    rgba(254, 235, 200, 0.56) 64.27%
+  );
+  box-shadow: 0px 2px 4px 0px #00000033;
+  padding: 48px 32px;
+  display: grid;
+  grid-template-columns: fit-content fit-content;
+  grid-template-rows: repeat(4, min-content);
+  grid-template-areas:
+    "text1 image"
+    "text2 image"
+    "text3 image"
+    "text4 image";
+  column-gap: 100px;
+  max-width: 100%;
+}
+
+.description-title {
+  grid-area: text1;
+  color: white;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.description-subtitle {
+  grid-area: text2;
+  margin-top: 48px;
+  max-width: 520px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.92px;
+}
+
+.description-features {
+  grid-area: text3;
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  grid-template-rows: repeat(3, max-content);
+  grid-template-areas:
+    "percent limit service"
+    "percent-sub limit-sub service-sub";
+  row-gap: 10px;
+  column-gap: 80px;
+}
+
+#percent {
+  grid-area: percent;
+}
+
+#percent-subtitle {
+  grid-area: percent-sub;
+}
+
+#limit {
+  grid-area: limit;
+}
+
+#limit-subtitle {
+  grid-area: limit-sub;
+}
+
+#service {
+  grid-area: service;
+}
+
+#service-subtitle {
+  grid-area: service-sub;
+}
+
+.features-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22.4px;
+}
+
+.features-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.92px;
+}
+
+.description-button {
+  grid-area: text4;
+}
+
+.description-image {
+  grid-area: image;
+  max-width: 380px;
+  min-width: 170px;
+  width: 100%;
+  align-self: center;
+}
+
+@media screen and (max-width: 1050px) {
+  .description {
+    padding: 30px 22px;
+    column-gap: 50px;
+  }
+  .description-title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+  .description-subtitle {
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 20px;
+  }
+
+  .features-title {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .features-subtitle {
+    font-size: 14px;
+  }
+  .description-features {
+    margin-top: 20px;
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .description {
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .description {
+    column-gap: 20px;
+    grid-template-areas:
+      "text1"
+      "text2"
+      "image"
+      "text3"
+      "text4";
+  }
+  .description-title {
+    font-size: 30px;
+    line-height: 30px;
+  }
+  .description-subtitle {
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 20px;
+  }
+
+  .description-image {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .description-features {
+    margin-top: 22px;
+    grid-template-columns: repeat(1, max-content);
+    grid-template-rows: repeat(9, max-content);
+    grid-template-areas:
+      "percent" "percent-sub" "limit" "limit-sub" "service"
+      "service-sub";
+    row-gap: 10px;
+    column-gap: 80px;
+  }
+}

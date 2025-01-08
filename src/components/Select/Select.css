@@ -1,0 +1,19 @@
+.term-select {
+  height: 40px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  background-color: #f9f5e3;
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #80808033;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+.term-select:focus {
+  border: 2px solid #5b35d5;
+}

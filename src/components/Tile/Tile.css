@@ -1,0 +1,40 @@
+.tile {
+  border-radius: 28px;
+  box-shadow: 0px 2px 4px 0px #00000033;
+  padding: 32px;
+  flex: 1 0 300px;
+  display: grid;
+}
+
+.tile__img {
+  width: 40px;
+}
+
+.tile__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 44.22px;
+  margin-top: 24px;
+  align-content: baseline;
+}
+
+.tile__subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  margin-top: 16px;
+  align-self: end;
+}
+
+.tile__bold-subtitle {
+  margin-top: 22px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 53.06px;
+}
+
+@media screen and (max-width: 500px) {
+  .tile {
+    flex: 1 0 250px;
+  }
+}

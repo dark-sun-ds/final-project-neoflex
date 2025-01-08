@@ -1,0 +1,18 @@
+.tab-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+    flex: 1 0 300px; 
+}
+
+.light {
+  background-color: #eaecee;
+}
+
+.dark {
+  background-color: #7f92acb2;
+}

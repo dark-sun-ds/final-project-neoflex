@@ -8,7 +8,7 @@ export const ChooseDesignSection = () => {
         Choose the design you like and apply for card right now
       </h1>
       <div className="choose-design__button" aria-label="Choose a Card Design">
-        <Button title="Choose the card" />
+        <Button title="Choose the card" type="button" />
       </div>
       <img
         className="choose-design__img"

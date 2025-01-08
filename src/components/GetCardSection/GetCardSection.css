@@ -1,0 +1,62 @@
+.get-card__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 44.22px;
+  text-align: center;
+}
+
+.get-card {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.get-card__step-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 106px;
+}
+
+.get-card__step-visual {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.get-card__step-circle {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  border-radius: 50px;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 29.48px;
+}
+
+.get-card__description {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23.58px;
+  text-align: center;
+}
+
+@media screen and (max-width: 950px) {
+  .get-card__step-container {
+    flex-direction: column;
+    max-width: 400px;
+  }
+
+  .get-card__step-container {
+    gap: 20px;
+  }
+}
