@@ -42,7 +42,7 @@ const Input: FC<{
           {...register(data.id, data.rules)}
           onChange={handleChange}
         />
-        {(isTouched || hasError) && isSubmitted && (
+        {(isTouched || hasError) && data.id!=='middleName' && isSubmitted && (
           <img className="input-img" src={hasError ? invalid : valid} alt="" />
         )}
       </div>

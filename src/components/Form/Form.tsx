@@ -6,7 +6,9 @@ import Input, { TInput } from "../Input/Input";
 import Select, { TSelect } from "../Select/Select";
 import { useForm } from "react-hook-form"; //RegisterOptions
 import { FormData } from "./typesForm";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import Loader from "../Loader/Loader";
 
 const Form = () => {
   const step1 = [
@@ -17,12 +19,12 @@ const Form = () => {
       inputProps: {
         id: "amount" as keyof FormData,
         type: "number",
-        placeholder: "15 000",
+        placeholder: "10 000",
         isRequired: true,
         rules: {
           required: "Can't be empty",
-          min: { value: 15000, message: "Must be at least 15 000" },
-          max: { value: 600000, message: "Must be no more than 600 000" },
+          min: { value: 10000, message: "Must be at least 10 000" },
+          max: { value: 1000000, message: "Must be no more than 1 000 000" },
         },
       },
     },
@@ -35,7 +37,13 @@ const Form = () => {
         type: "text",
         placeholder: "For Example Doe",
         isRequired: true,
-        rules: { required: "Enter your last name" },
+        rules: {
+          required: "Enter your last name",
+          pattern: {
+            value: /^[A-Za-z-]{2,30}$/,
+            message: "Last name can only contain letters and dashes",
+          },
+        },
       },
     },
     {
@@ -47,7 +55,13 @@ const Form = () => {
         type: "text",
         placeholder: "For Example Jhon",
         isRequired: true,
-        rules: { required: "Enter your first name" },
+        rules: {
+          required: "Enter your first name",
+          pattern: {
+            value: /^[A-Za-z-]{2,30}$/,
+            message: "First name can only contain letters and dashes",
+          },
+        },
       },
     },
     {
@@ -59,7 +73,12 @@ const Form = () => {
         type: "text",
         placeholder: "For Example Victorovich",
         isRequired: false,
-        rules: {},
+        rules: {
+          pattern: {
+            value: /^[A-Za-z]{2,30}$/,
+            message: "Patronymic can only contain letters",
+          },
+        },
       },
     },
     {
@@ -150,8 +169,8 @@ const Form = () => {
       return "Can`t be empty";
     }
 
-    const [year, day, month] = value.split("-").map(Number);
-    console.log(year, day, month);
+    const [year, month, day] = value.split("-").map(Number);
+    console.log(year, month, day);
 
     if (
       isNaN(year) ||
@@ -195,110 +214,121 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitted },
+    reset,
   } = useForm<FormData>();
   const amountRef = useRef<HTMLInputElement>(null);
   const [amount, setAmount] = useState<number>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-  const onSubmit = async (e: FormData) => {
-    console.log(e);
+  useEffect(() => {
+    const submitLS = localStorage.getItem("isSubmit");
+    if (submitLS) {
+      setIsSubmit(JSON.parse(submitLS));
+    } else {
+      localStorage.setItem("isSubmit", "false");
+      setIsSubmit(false);
+    }
+  }, []);
 
-    // const test = { ...data };
-    // console.log(test.target[0].value);
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    console.log({ data });
 
-    //     e.preventDefault();
-    //     try {
-    // console.log("");
-
-    //     }
-    //     catch {
-    //       console.error("Error during form submission");
-    //     }
+    try {
+      const response: AxiosResponse = await axios.post<
+        void,
+        AxiosResponse<FormData>
+      >("http://localhost:8080/application", data);
+      console.log({ response: response.status });
+    } catch {
+      console.error("Error during form submission");
+    } finally {
+      setIsLoading(false);
+      setIsSubmit(true);
+      reset();
+      localStorage.setItem("isSubmit", "true");
+    }
   };
-  // const handleSubmit = async () => {
-  //   try {
-  //     const emailData: EmailData = { email };
-  //     const response: AxiosResponse = await axios.post<
-  //       void,
-  //       AxiosResponse<EmailData>
-  //     >("http://localhost:8080/email", emailData);
-  //     console.log({ response: response.status });
 
-  //     setIsSubscribed(true);
-  //     localStorage.setItem("isSubscribed", "true");
-  //     setEmail("");
-  //   } catch (err: unknown) {
-  //     if (axios.isAxiosError(err)) {
-  //       const axiosError: AxiosError<AxiosResponse> = err;
-  //       console.error("Ошибка Axios: ", axiosError);
-  //     } else if (err instanceof Error) {
-  //       console.error("Общая ошибка: ", err);
-  //     } else {
-  //       console.error("Неизвестная ошибка: ", err);
-  //     }
-  //   }
-  // };
-
-  return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="customize">
-        <div className="customize__heading">
-          <h2 className="customize__title">Customize your card</h2>
-          <p className="customize__step">Step 1 of 5</p>
-        </div>
-        <div className="customize__label">
-          <div className="label-wrapper" ref={amountRef}>
-            <Label
-              labelTitle={step1[0].labelTitle}
-              htmlFor={step1[0].htmlFor}
-              isRequired={step1[0].inputProps.isRequired}
-            />
-            <Input
-              data={step1[0].inputProps as TInput}
-              register={register}
-              errors={errors}
-              isSubmitted={isSubmitted}
-              setAmount={setAmount}
-            />
+  return !isSubmit ? (
+    !isLoading ? (
+      <form id="form" className="form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="customize">
+          <div className="customize__heading">
+            <h2 className="customize__title">Customize your card</h2>
+            <p className="customize__step">Step 1 of 5</p>
           </div>
-        </div>
-
-        <div className="customize-amount">
-          <div className="div"></div>
-          <div className="customize-amount__wrapper">
-            <p className="customize__amount-title">
-              You have chosen the amount
-            </p>
-            <p className="customize__amount-value">{amount ? amount : 0} ₽</p>
-            <Divider isActive={null} parent="formParent" />
-          </div>
-        </div>
-      </div>
-      <div className="contact-info">
-        <p className="contact-info__title">Contact Information</p>
-        <div className="contact-info__inputs">
-          {step1.slice(1).map((item) => (
-            <div className="label-wrapper">
+          <div className="customize__label">
+            <div className="label-wrapper" ref={amountRef}>
               <Label
-                labelTitle={item.labelTitle}
-                htmlFor={item.htmlFor}
-                isRequired={item.inputProps.isRequired}
+                labelTitle={step1[0].labelTitle}
+                htmlFor={step1[0].htmlFor}
+                isRequired={step1[0].inputProps.isRequired}
               />
-              {item.componentType === "input" ? (
-                <Input
-                  data={item.inputProps as TInput}
-                  register={register}
-                  errors={errors}
-                  isSubmitted={isSubmitted}
-                />
-              ) : (
-                <Select data={item.inputProps as TSelect} register={register} />
-              )}
+              <Input
+                data={step1[0].inputProps as TInput}
+                register={register}
+                errors={errors}
+                isSubmitted={isSubmitted}
+                setAmount={setAmount}
+              />
             </div>
-          ))}
+          </div>
+
+          <div className="customize-amount">
+            <div className="div"></div>
+            <div className="customize-amount__wrapper">
+              <p className="customize__amount-title">
+                You have chosen the amount
+              </p>
+              <p className="customize__amount-value">{amount ? amount : 0} ₽</p>
+              <Divider isActive={null} parent="formParent" />
+            </div>
+          </div>
         </div>
-      </div>
-      <Button title="Continue" type="submit" />
-    </form>
+        <div className="contact-info">
+          <p className="contact-info__title">Contact Information</p>
+          <div className="contact-info__inputs">
+            {step1.slice(1).map((item) => (
+              <div className="label-wrapper">
+                <Label
+                  labelTitle={item.labelTitle}
+                  htmlFor={item.htmlFor}
+                  isRequired={item.inputProps.isRequired}
+                />
+                {item.componentType === "input" ? (
+                  <Input
+                    data={item.inputProps as TInput}
+                    register={register}
+                    errors={errors}
+                    isSubmitted={isSubmitted}
+                  />
+                ) : (
+                  <Select
+                    data={item.inputProps as TSelect}
+                    register={register}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <Button title="Continue" type="submit" />
+      </form>
+    ) : (
+      <Loader />
+    )
+  ) : (
+    <div className="end-form">
+      <h2 className="end-form__title">
+        The preliminary decision has been sent to your email.
+      </h2>
+      <p className="end-form__description">
+        In the letter you can get acquainted with the preliminary decision on
+        the credit card.
+      </p>
+    </div>
   );
 };
 
