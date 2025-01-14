@@ -77,8 +77,6 @@
   margin-top: 26px;
   flex: 1 0 250px;
   width: 100%;
-
-  flex-grow: 1;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;

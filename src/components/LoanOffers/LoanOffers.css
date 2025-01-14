@@ -1,0 +1,25 @@
+.loan-offers {
+  margin-top: 49px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.offer-error {
+  background-color: red;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1150px) {
+  .loan-offers {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .loan-offers {
+    grid-template-columns: repeat(1, auto);
+  }
+}

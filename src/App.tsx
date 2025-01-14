@@ -6,6 +6,9 @@ import { Loan } from "./pages/Loan/Loan.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store.ts";
+import NotFound from "./pages/NotFound/NotFound.tsx";
+import LoanDetails from "./pages/LoanDetails/LoanDetails.tsx";
+import LoanDocument from "./pages/Home/LoanDocument/LoanDocument.tsx";
 
 function App() {
   return (
@@ -16,6 +19,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/loan" element={<Loan />}></Route>
+            <Route path="/loan/:id" element={<LoanDetails />}></Route>
+            <Route path="/loan/:id/document" element={<LoanDocument />}></Route>
+
+            <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>
         <Footer />

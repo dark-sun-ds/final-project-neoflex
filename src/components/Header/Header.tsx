@@ -16,7 +16,7 @@ export const Header = () => {
       </a>
       <NavBar flexDirection="row" />
       <div className="header__buttons-container">
-        <Button title="Online Bank"></Button>
+        <Button title="Online Bank" type="button" padding="16px"></Button>
         <button
           className="header__humburger-btn"
           onClick={navToggle}

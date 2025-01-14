@@ -39,7 +39,7 @@ export const CardDescriptionSection = () => {
         </p>
       </div>
       <div className="description-button">
-        <Button title="Apply for card" type="button" scrollTo="form" />
+        <Button title="Apply for card" type="button" scrollTo="form" padding="16px" />
       </div>
       <img
         src="/src/assets/card1.svg"

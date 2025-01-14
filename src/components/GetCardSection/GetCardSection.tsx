@@ -23,7 +23,7 @@ const GetCardSection = () => {
       <h2 className="get-card__title">How to get a card</h2>
       <div className="get-card__step-container">
         {stepsData.map((step, index) => (
-          <div className="get-card__step">
+          <div key={index} className="get-card__step">
             <div className="get-card__step-visual">
               <div className="get-card__step-circle">{++index}</div>
               <Divider isActive={null} parent="getCard" />

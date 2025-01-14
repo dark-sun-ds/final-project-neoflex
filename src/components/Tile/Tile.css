@@ -33,6 +33,19 @@
   line-height: 53.06px;
 }
 
+.light {
+  background-color: #eaecee;
+}
+
+.dark {
+  background-color: #7f92acb2;
+}
+
+.normal {
+  background-color: #88B3B899;
+}
+
+
 @media screen and (max-width: 500px) {
   .tile {
     flex: 1 0 250px;
