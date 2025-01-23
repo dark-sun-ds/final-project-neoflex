@@ -6,7 +6,9 @@ type TProps = {
   type: "button" | "submit" | "reset" | undefined;
   padding: string;
   scrollTo?: string;
+  color?: "red" | "blue";
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  isDisabled: boolean;
 };
 export const Button: React.FC<TProps> = ({
   title,
@@ -14,14 +16,18 @@ export const Button: React.FC<TProps> = ({
   padding,
   scrollTo,
   onClick,
+  color,
+  isDisabled,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const buttonColor = color === "red" ? "#D93737CC" : "#003cff";
+  const buttonHoverColor = color === "red" ? "#e87b7bd5" : "#7796c0";
   const buttonStyle = {
     width: "max-content",
     height: "50px",
     borderRadius: "16px",
     padding: padding,
-    backgroundColor: isHovered ? "#7796c0" : "#003cff",
+    backgroundColor: isHovered ? buttonHoverColor : buttonColor,
     color: "white",
     border: "none",
     outline: "none",
@@ -30,7 +36,8 @@ export const Button: React.FC<TProps> = ({
     fontWeight: 700,
     lineHeight: "17.92px",
     textAlign: "center" as CSSProperties["textAlign"],
-    cursor: "pointer",
+    opacity: isDisabled ? 0.5 : 1,
+    cursor: isDisabled ? "not-allowed" : "pointer",
   };
 
   function scroll() {
@@ -48,6 +55,7 @@ export const Button: React.FC<TProps> = ({
       onClick={scrollTo ? scroll : onClick ? onClick : undefined}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      {...(isDisabled ? {disabled:true} : {})}
     >
       {title}
     </button>

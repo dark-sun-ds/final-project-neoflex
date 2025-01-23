@@ -1,0 +1,120 @@
+.sign {
+  margin: 104px auto 30px;
+  max-width: 1300px;
+  width: 100%;
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, auto);
+  gap: 32px;
+}
+
+.sign__heading {
+  display: flex;
+  align-items: center;
+}
+
+.sign__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 33.6px;
+  color: #1c1c1e;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.sign__subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.92px;
+  flex-grow: 5;
+  flex-shrink: 1;
+}
+
+.sign__description {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 22.4px;
+  color: #4f5665;
+}
+
+.sign__file {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 22.4px;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.sign-agreement {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 80px;
+  justify-self: right;
+}
+
+.sign__checkbox {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-self: left;
+}
+
+.sign__button {
+  justify-self: right;
+}
+
+.sign-done {
+  margin: auto;
+  max-width: 1300px;
+  width: 100%;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 42px;
+}
+
+.sign-done__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 33.6px;
+  text-align: center;
+  color: #1c1c1e;
+}
+
+.sign-done__subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.92px;
+  text-align: center;
+  color: #4F5665;
+}
+
+@media screen and (max-width: 800px) {
+  .sign {
+    margin-top: 52px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sign__heading {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .sign-agreement {
+    grid-template-columns: auto;
+    width: 100%;
+    gap: 32px;
+  }
+  .sign__checkbox {
+    align-self: self-start;
+  }
+}

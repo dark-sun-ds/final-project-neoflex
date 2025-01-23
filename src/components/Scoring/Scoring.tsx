@@ -307,7 +307,7 @@ const Scoring = () => {
             </div>
           ))}
         </div>
-        <Button title="Continue" type="submit" padding="16px 38px" />
+        <Button title="Continue" type="submit" padding="16px 38px" isDisabled={false} />
       </form>
     ) : (
       <Loader />

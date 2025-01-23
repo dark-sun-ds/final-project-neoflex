@@ -1,7 +1,9 @@
 import axios from "axios";
 import "./Table.css";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Loader from "../Loader/Loader";
+import ascending from "/src/assets/ascending.svg"
+import descending from "/src/assets/descending.svg"
 
 interface RowData {
   number: number;
@@ -20,17 +22,13 @@ interface ResponseData {
   };
 }
 
-interface SortConfig {
-  key: keyof RowData;
-  direction: "ascending" | "descending";
-}
-
 const Table: React.FC = () => {
   const [tableData, setTableData] = useState<RowData[]>();
-  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
+  const [sortColumn, setSortColumn] = useState<keyof RowData | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     getTableData();
@@ -48,7 +46,6 @@ const Table: React.FC = () => {
       const response: ResponseData = await axios.get(
         `http://localhost:8080/admin/application/${Number(id)}`
       );
-      console.log(response);
 
       setTableData(response.data.credit.paymentSchedule);
       setStatus("success");
@@ -61,71 +58,118 @@ const Table: React.FC = () => {
     }
   }
 
-  const requestSort = (key: keyof RowData) => {
-    let direction: "ascending" | "descending" = "ascending";
-    if (sortConfig?.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
-    }
+  const sortedData = useMemo(() => {
+    if (!sortColumn) return tableData;
 
-    const sortedData = [...tableData].sort((a, b) => {
-      if (a[key] < b[key]) {
-        return direction === "ascending" ? -1 : 1;
+    const newData = tableData ? [...tableData] : [];
+    newData.sort((a, b) => {
+      const aValue = a[sortColumn];
+      const bValue = b[sortColumn];
+
+      let comparison = 0;
+
+      if (typeof aValue === "number" && typeof bValue === "number") {
+        comparison = aValue - bValue;
+      } else if (typeof aValue === "string" && typeof bValue === "string") {
+        if (sortColumn === "date") {
+          const dateA = new Date(aValue);
+          const dateB = new Date(bValue);
+          comparison = dateA.getTime() - dateB.getTime();
+        } else {
+          comparison = aValue.localeCompare(bValue);
+        }
       }
-      if (a[key] > b[key]) {
-        return direction === "ascending" ? 1 : -1;
-      }
-      return 0;
+
+      return sortDirection === "asc" ? comparison : -comparison;
     });
+    return newData;
+  }, [tableData, sortColumn, sortDirection]);
 
-    setTableData(sortedData);
-    setSortConfig({ key, direction });
-  };
+  const handleSort = useCallback(
+    (column: keyof RowData) => {
+      if (sortColumn === column) {
+        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      } else {
+        setSortColumn(column);
+        setSortDirection("asc");
+      }
+    },
+    [sortColumn, sortDirection]
+  );
+
 
   const getSortIcon = (key: keyof RowData) => {
-    if (sortConfig?.key !== key) return null;
-    return sortConfig.direction === "ascending" ? "🔼" : "🔽";
+    return (
+      <img className="sort-indicator"
+        src={
+          sortColumn !== key || sortDirection === "asc"
+            ? ascending
+            : descending
+        }
+      />
+    );
   };
 
   return status === "loading" ? (
     <Loader />
   ) : status === "success" ? (
-    <table className="document-table">
-      <thead className="document-table-head">
-        <tr>
-          <th onClick={() => requestSort("number")}>
-            Number {getSortIcon("number")}
-          </th>
-          <th onClick={() => requestSort("date")}>
-            Date {getSortIcon("date")}
-          </th>
-          <th onClick={() => requestSort("totalPayment")}>
-            Total payment {getSortIcon("totalPayment")}
-          </th>
-          <th onClick={() => requestSort("interestPayment")}>
-            Interest Payment {getSortIcon("interestPayment")}
-          </th>
-          <th onClick={() => requestSort("debtPayment")}>
-            Debt Payment {getSortIcon("debtPayment")}
-          </th>
-          <th onClick={() => requestSort("remainingDebt")}>
-            Remaining Debt {getSortIcon("remainingDebt")}
-          </th>
-        </tr>
-      </thead>
-      <tbody className="document-table-body">
-        {tableData &&
-          tableData.map((row) => (
-            <tr key={row.number} className="document-table-row">
-              <td>{row.number}</td>
-              <td>{row.date}</td>
-              <td>{row.totalPayment}</td>
-              <td>{row.interestPayment}</td>
-              <td>{row.debtPayment}</td>
-              <td>{row.remainingDebt}</td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
+    <div className="table-wrapper">
+      <table className="document-table">
+        <thead>
+          <tr className="document-table__row">
+            <th
+              className="document-table__head"
+              onClick={() => handleSort("number")}
+            >
+              NUMBER {getSortIcon("number")}
+            </th>
+            <th
+              className="document-table__head"
+              onClick={() => handleSort("date")}
+            >
+              DATE {getSortIcon("date")}
+            </th>
+            <th
+              className="document-table__head"
+              onClick={() => handleSort("totalPayment")}
+            >
+              TOTAL PAYMENT {getSortIcon("totalPayment")}
+            </th>
+            <th
+              className="document-table__head"
+              onClick={() => handleSort("interestPayment")}
+            >
+              INTEREST PAYMENT {getSortIcon("interestPayment")}
+            </th>
+            <th
+              className="document-table__head"
+              onClick={() => handleSort("debtPayment")}
+            >
+              DEBT PAYMENT {getSortIcon("debtPayment")}
+            </th>
+            <th
+              className="document-table__head"
+              onClick={() => handleSort("remainingDebt")}
+            >
+              REMAINING DEBT {getSortIcon("remainingDebt")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedData &&
+            sortedData.map((row) => (
+              <tr key={row.number} className="document-table__row">
+                <td className="document-table__data">{row.number}</td>
+                <td className="document-table__data">{row.date}</td>
+                <td className="document-table__data">{row.totalPayment}</td>
+                <td className="document-table__data">{row.interestPayment}</td>
+                <td className="document-table__data">{row.debtPayment}</td>
+                <td className="document-table__data">{row.remainingDebt}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
   ) : (
     <div>Failed to fetch data</div>
   );

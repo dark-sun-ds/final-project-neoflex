@@ -1,0 +1,108 @@
+.loan-document {
+  margin: 24px auto;
+  max-width: 1300px;
+  width: 100%;
+  padding: 0 30px;
+}
+
+.loan-document-wrapper {
+  box-shadow: 0px 2px 4px 0px #00000033;
+  border-radius: 28px;
+  background-color: white;
+  width: 100%;
+  padding: 32px;
+}
+
+.loan-document__heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 76px;
+}
+
+.heading__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 44.22px;
+  color: #1c1c1e;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.heading__subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23.58px;
+  flex-grow: 5;
+  flex-shrink: 1;
+}
+
+.loan-buttons {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+  grid-template-areas: "deny agreement send";
+}
+
+.loan-agreement {
+  grid-area: agreement;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-right: 40px;
+  justify-self: right;
+}
+
+.button-send {
+  justify-self: right;
+}
+
+.document-formed {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-direction: column;
+}
+
+.document-formed__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 33.6px;
+  text-align: center;
+  color: #1c1c1e;
+}
+
+.document-formed__subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.92px;
+  text-align: center;
+  color: #4F5665;
+}
+
+@media screen and (max-width: 670px) {
+  .loan-document-wrapper {
+    padding: 16px;
+  }
+  .loan-buttons {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "agreement agreement"
+      "deny send";
+    gap: 25px;
+  }
+  .loan-agreement {
+    justify-self: left;
+  }
+
+  .loan-document__heading {
+    margin-bottom: 26px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .heading__title {
+    flex-shrink: 1;
+  }
+}

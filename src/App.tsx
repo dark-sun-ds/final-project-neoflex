@@ -8,7 +8,9 @@ import { Provider } from "react-redux";
 import { store } from "./store.ts";
 import NotFound from "./pages/NotFound/NotFound.tsx";
 import LoanDetails from "./pages/LoanDetails/LoanDetails.tsx";
-import LoanDocument from "./pages/Home/LoanDocument/LoanDocument.tsx";
+import LoanDocument from "./pages/LoanDocument/LoanDocument.tsx";
+import LoanSign from "./pages/LoanSign/LoanSign.tsx";
+import LoanCode from "./pages/LoanCode/LoanCode.tsx";
 
 function App() {
   return (
@@ -21,6 +23,14 @@ function App() {
             <Route path="/loan" element={<Loan />}></Route>
             <Route path="/loan/:id" element={<LoanDetails />}></Route>
             <Route path="/loan/:id/document" element={<LoanDocument />}></Route>
+            <Route
+              path="/loan/:id/document/sign"
+              element={<LoanSign />}
+            ></Route>
+            <Route
+              path="/loan/:id/document/sign/code"
+              element={<LoanCode />}
+            ></Route>
 
             <Route path="*" element={<NotFound />}></Route>
           </Routes>

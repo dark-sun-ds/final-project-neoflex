@@ -22,7 +22,7 @@ const NotFound = () => {
         <p className="not-found__description">
           This Page doesn`t exist or was removed! We suggest you go back.
         </p>
-        <Button title="Go back" type="button" onClick={handleGoBack} />
+        <Button title="Go back" type="button" onClick={handleGoBack} padding="11px 64px" isDisabled={false}/>
       </div>
       <img className="not-found__img" src={errorImg} alt="" />
     </div>

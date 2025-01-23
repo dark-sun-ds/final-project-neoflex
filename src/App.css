@@ -20,9 +20,12 @@ body {
 }
 
 .container {
-  height: 100vh;
+  /* height: 100vh;
   display: grid;
-  grid-template-rows: min-content auto min-content;
+  grid-template-rows: min-content auto min-content; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 
