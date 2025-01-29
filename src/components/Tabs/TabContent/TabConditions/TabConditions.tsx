@@ -1,4 +1,6 @@
 import "./TabConditions.css";
+import React from 'react'
+
 const TabConditions = () => {
   const conditions = [
     {
@@ -33,7 +35,7 @@ const TabConditions = () => {
     },
   ];
   return (
-    <table className="table">
+    <table className="table" aria-label="tab-conditions">
       <tbody>
         {conditions.map((condition, index) => (
           <tr className="table__row" key={index}>

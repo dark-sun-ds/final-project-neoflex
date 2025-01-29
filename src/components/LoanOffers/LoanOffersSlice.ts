@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TOfferProps } from "./LoanOffers";
 import axios, { AxiosResponse } from "axios";
 
-
 export type OfferState = {
   offers: TOfferProps;
   isLoading: boolean;

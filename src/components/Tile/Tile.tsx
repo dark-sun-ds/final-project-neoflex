@@ -1,5 +1,6 @@
 import { FC } from "react";
 import "./Tile.css";
+import React from "react";
 
 type TInfo = {
   img?: string;
@@ -21,8 +22,7 @@ const Tile: FC<{
         <p className="tile__subtitle">{info.subtitle}</p>
       </div>
     );
-  }
-  else if (elemAmount === 2) {
+  } else if (elemAmount === 2) {
     return (
       <div className={className}>
         <p className="tile__subtitle">{info.title}</p>

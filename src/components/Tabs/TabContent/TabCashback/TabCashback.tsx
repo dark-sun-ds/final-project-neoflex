@@ -1,5 +1,6 @@
 import Tile from "../../../Tile/Tile";
 import "./TabCashback.css";
+import React from 'react'
 
 const TabCashback = () => {
   const cashbackInfo = [
@@ -30,7 +31,7 @@ const TabCashback = () => {
   ];
 
   return (
-    <div className="cashbacks">
+    <div className="cashbacks" aria-label="tab-cashbacks">
       {cashbackInfo.map((info, index) => (
         <Tile
           key={index}

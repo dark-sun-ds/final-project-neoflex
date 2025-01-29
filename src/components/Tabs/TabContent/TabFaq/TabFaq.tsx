@@ -1,7 +1,8 @@
 import "./TabFaq.css";
 import { receivingCard, usingCard } from "../../../Accordion/AccordionData";
-import Accordion from "../../../Accordion/Accordion";
+import Accordion from "../../../Accordion/Accordions";
 import { v4 as uuidv4 } from "uuid";
+import React from 'react'
 
 const TabFaq = () => {
   function generateUniqueId(data: { title: string; content: string }[]) {
@@ -12,7 +13,7 @@ const TabFaq = () => {
     }));
   }
   return (
-    <div className="tab-faq">
+    <div className="tab-faq" aria-label="tab-faq">
       <h2 className="tab-faq__title">Issuing and receiving a card</h2>
       <Accordion accordionId="1" data={generateUniqueId(receivingCard)} />
 

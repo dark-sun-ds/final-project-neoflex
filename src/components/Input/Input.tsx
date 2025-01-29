@@ -1,4 +1,5 @@
 import "./Input.css";
+import React from "react";
 import { FC, useState } from "react";
 import valid from "/src/assets/valid.svg";
 import { FieldErrors, RegisterOptions, UseFormRegister } from "react-hook-form";
@@ -52,9 +53,14 @@ export const Input: FC<{
           {...(data.isRequired ? { required: true } : {})}
           {...register(data.id, data.rules)}
           onChange={handleChange}
+          aria-labelledby={data.id}
         />
         {(isTouched || hasError) && data.id !== "middleName" && isSubmitted && (
-          <img className="input-img" src={hasError ? invalid : valid} alt="" />
+          <img
+            className="input-img"
+            src={hasError ? invalid : valid}
+            alt={hasError ? "invalid" : "valid"}
+          />
         )}
       </div>
       {hasError && (
@@ -90,6 +96,7 @@ export const InputScoring: FC<{
           {...(data.isRequired ? { required: true } : {})}
           {...register(data.id, data.rules)}
           onChange={handleChange}
+          aria-labelledby={data.id}
         />
         {(isTouched || hasError) && isSubmitted && (
           <img className="input-img" src={hasError ? invalid : valid} alt="" />

@@ -21,7 +21,7 @@ export type NewsArticle = {
   description: string;
 };
 
-type SetArticles = React.Dispatch<React.SetStateAction<NewsArticle[]>>;
+export type SetArticles = React.Dispatch<React.SetStateAction<NewsArticle[]>>;
 
 let result: NewsArticleAnswer[] = [];
 let timerId: number;
@@ -33,7 +33,7 @@ export async function fetchNews() {
     method: "GET",
     url: `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${newsBatch}`,
     headers: {
-      "x-api-key": "187a157964944d64852acbb3c9556ec1",
+      "x-api-key": "d1ace936f9b649b4adfcde74f8ab1a39",
     },
   };
 

@@ -1,14 +1,15 @@
-import './Tooltip.css'
-import React, { FC } from 'react'
+import "./Tooltip.css";
+import React, { FC } from "react";
 
-const Tooltip: FC<{ text: string; tooltip: string }> = ({text, tooltip}) => {
+const Tooltip: FC<{ text: string; tooltip: string }> = ({ text, tooltip }) => {
   return (
-    <span className="tooltip__text" aria-describedby="tooltip-span">{text}
-      <span id="tooltip-span" className="tooltip__span">
+    <span className="tooltip__text" aria-describedby="tooltip-span">
+      {text}
+      <span id={text} className="tooltip__span">
         {tooltip}
       </span>
     </span>
   );
 };
 
-export default Tooltip
+export default Tooltip;

@@ -4,7 +4,7 @@ import { init } from "./ConverterArticle";
 import { useState, useEffect } from "react";
 
 type CurrencyResult = { [key: string]: number };
-export const ConverterArticle:FC = () => {
+export const ConverterArticle: FC = () => {
   const [currencyResults, setCurrencyResults] = useState<CurrencyResult>({});
   const currencyList: React.JSX.Element[] = [];
 

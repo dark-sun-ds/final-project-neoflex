@@ -74,14 +74,9 @@ export function init(
       "timeout",
       (new Date().getTime() + remainingTime).toString()
     );
-    // console.log(
-    //   "timeout doesn't expired ",
-    //   remainingTime / 1000,
-    //   " seconds left"
-    // );
+
     processRates(JSON.parse(currensies), setCurrencyResults);
   } else if (currensies && new Date().getTime() >= Number(timeout)) {
-    // console.log("timeout expired");
     updateRates(setCurrencyResults);
   }
 }
@@ -96,6 +91,4 @@ export function processRates(
     }
   });
   setCurrencyResults(filteredRates);
-
-  // console.log("Filtered Rates:", filteredRates);
 }

@@ -46,6 +46,9 @@ const prescoringSlice = createSlice({
     setIsSubmitted: (state, action: PayloadAction<boolean>) => {
       state.isSubmitted = action.payload;
     },
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
     setLoanOffers: (state, action: PayloadAction<TOfferProps[]>) => {
       state.loanOffers = action.payload;
     },
@@ -76,6 +79,6 @@ const prescoringSlice = createSlice({
   },
 });
 
-export const { setAmount, setFormData, setIsSubmitted, setLoanOffers } =
+export const { setAmount, setFormData, setIsSubmitted, setLoanOffers, setIsLoading } =
   prescoringSlice.actions;
 export default prescoringSlice.reducer;

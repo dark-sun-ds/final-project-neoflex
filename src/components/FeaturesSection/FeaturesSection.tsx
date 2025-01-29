@@ -1,3 +1,4 @@
+import React from "react";
 import "./FeaturesSection.css";
 import features from "../../assets/feature.svg";
 export const FeaturesSection = () => {
@@ -27,4 +28,3 @@ export const FeaturesSection = () => {
     </section>
   );
 };
-

@@ -1,10 +1,11 @@
+import React from "react";
 import { Button } from "../Button/Button";
 import Divider from "../Divider/Divider";
 import Label from "../Label/Label";
 import "./Prescoring.css";
 import Input, { TInput } from "../Input/Input";
 import Select, { TSelect } from "../Select/Select";
-import { useForm } from "react-hook-form"; //RegisterOptions
+import { useForm } from "react-hook-form"; 
 import { FormData } from "./formUtils";
 import { useEffect, useRef } from "react";
 import Loader from "../Loader/Loader";
@@ -19,12 +20,11 @@ import {
   submitPrescoring,
 } from "./PrescoringFormSlice";
 
-const Form = () => {
+const Prescoring = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    //reset,
   } = useForm<FormData>();
 
   const dispatch: AppDispatch = useDispatch();
@@ -61,12 +61,16 @@ const Form = () => {
     console.log("submit");
     dispatch(setFormData(prepareData(data)));
     dispatch(submitPrescoring(prepareData(data)));
-    //reset();
   };
 
   return !isSubmitted ? (
     !isLoading ? (
-      <form id="form" className="form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        role="form"
+        id="form"
+        className="form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="customize">
           <div className="customize__heading">
             <h2 className="customize__title">Customize your card</h2>
@@ -127,15 +131,19 @@ const Form = () => {
             ))}
           </div>
         </div>
-        <Button title="Continue" type="submit" padding="16px 38px" isDisabled={false} />
+        <Button
+          title="Continue"
+          type="submit"
+          padding="16px 38px"
+          isDisabled={false}
+        />
       </form>
     ) : (
       <Loader />
     )
   ) : (
     <LoanOffers offers={loanOffers} />
-
   );
 };
 
-export default Form;
+export default Prescoring;

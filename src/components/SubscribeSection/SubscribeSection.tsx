@@ -2,6 +2,7 @@ import "./SubscribeSection.css";
 import emailImg from "../../assets/email.svg";
 import { useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import React from 'react'
 
 type EmailData = {
   email: string;
@@ -71,14 +72,14 @@ export const SubscribeSection = () => {
             required
           />
         </label>
-        <button className={buttonState} type="submit" >
+        <button className={buttonState} type="submit">
           <img src="/src/assets/subscribe_button_img.svg" alt="" />
           Subscribe
         </button>
       </form>
       {isSubscribed ? (
         <p className="subscribe__warning">
-          You are already subscribed to the bank's newsletter.
+          You are already subscribed to the bank`&apos;`s newsletter.
         </p>
       ) : (
         <></>

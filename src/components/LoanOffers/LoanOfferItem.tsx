@@ -1,5 +1,5 @@
 import "./LoanOfferItem.css";
-
+import React from 'react'
 import { FC } from "react";
 import { TOfferProps } from "./LoanOffers";
 import loanImg from "/src/assets/loan-offer-item.svg";
@@ -15,7 +15,9 @@ const LoanOfferItem: FC<{ offer: TOfferProps; dispatch: AppDispatch }> = ({
 
   const handleSelectOffer = () => {
     dispatch(submitOffer(offer));
+  console.log(dispatch(submitOffer(offer)));
   };
+  
   return (
     <div className="offer-item">
       <img src={loanImg} alt="" className="offer-item__img" />
@@ -34,7 +36,7 @@ const LoanOfferItem: FC<{ offer: TOfferProps; dispatch: AppDispatch }> = ({
         Insurance included{" "}
         <img
           src={offer.isInsuranceEnabled ? valid : invalid}
-          alt=""
+          alt={offer.isInsuranceEnabled ? "valid" : "invalid"}
           className="offer-item__icon"
         />
       </p>
@@ -42,7 +44,7 @@ const LoanOfferItem: FC<{ offer: TOfferProps; dispatch: AppDispatch }> = ({
         Salary client{" "}
         <img
           src={offer.isSalaryClient ? valid : invalid}
-          alt=""
+          alt={offer.isSalaryClient ? "valid" : "invalid"}
           className="offer-item__icon"
         />
       </p>
@@ -51,6 +53,7 @@ const LoanOfferItem: FC<{ offer: TOfferProps; dispatch: AppDispatch }> = ({
         type="button"
         padding="15px 49px"
         onClick={handleSelectOffer}
+        isDisabled={false}
       />
     </div>
   );

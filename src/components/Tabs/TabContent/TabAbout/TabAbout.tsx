@@ -1,5 +1,7 @@
 import Tile from "../../../Tile/Tile";
 import "./TabAbout.css";
+import React from 'react'
+
 const TabAbout = () => {
   const aboutInfo = [
     {
@@ -32,7 +34,7 @@ const TabAbout = () => {
     },
   ];
   return (
-    <div className="tab-container">
+    <div className="tab-container" aria-label="tab-container">
       {aboutInfo.map((info, index) => (
         <Tile 
           key={index}

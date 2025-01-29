@@ -1,18 +1,20 @@
 import { FC } from "react";
 import "./NavBar.css";
+import React from "react";
 
 type TProps = {
   flexDirection: string;
-  display?: boolean; // Optional prop to hide the nav bar if needed
 };
-const NavBar: FC<TProps> = ({ flexDirection, display=true }) => {
-  let style = flexDirection === "row" ? "nav-row" : "nav-column";
-  if (!display)
-  {
-    style += " disable";
-  }
+const NavBar: FC<TProps> = ({ flexDirection }) => {
+  const style = flexDirection === "row" ? "nav-row" : "nav-column";
   return (
-    <nav className={style} role="navigation">
+    <nav
+      className={style}
+      role="navigation"
+      aria-label={
+        style === "nav-row" ? "desktop-navigation" : "mobile-navigation"
+      }
+    >
       <a href="#" className="nav_item" role="menuitem">
         Credit card
       </a>

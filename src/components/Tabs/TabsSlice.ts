@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface TabState {
+export interface TabState {
   activeTab: string;
 }
 

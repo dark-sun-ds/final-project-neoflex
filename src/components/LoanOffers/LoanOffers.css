@@ -1,5 +1,6 @@
 .loan-offers {
   margin-top: 49px;
+  margin-bottom: 98px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
@@ -11,6 +12,39 @@
   background-color: red;
   font-size: 20px;
 }
+
+
+.end-form {
+  border: 1px solid #5b35d5;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 48px;
+  margin-bottom: 96px;
+  padding: 24px 24px 34px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.end-form__title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 33.6px;
+  text-align: center;
+  color: #1c1c1e;
+}
+
+.end-form__description {
+  font-family: Ubuntu;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.92px;
+  text-align: center;
+  color: #4f5665;
+  margin-top: 32px;
+}
+
 
 @media screen and (max-width: 1150px) {
   .loan-offers {

@@ -1,67 +1,17 @@
-import axios from "axios";
 import "./Table.css";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import Loader from "../Loader/Loader";
-import ascending from "/src/assets/ascending.svg"
-import descending from "/src/assets/descending.svg"
+import React, { useCallback, useMemo, useState } from "react";
+import ascending from "/src/assets/ascending.svg";
+import descending from "/src/assets/descending.svg";
+import { RowData } from "../../pages/LoanDocument/LoanDocument";
 
-interface RowData {
-  number: number;
-  date: string;
-  totalPayment: number;
-  interestPayment: number;
-  debtPayment: number;
-  remainingDebt: number;
-}
-
-interface ResponseData {
-  data: {
-    credit: {
-      paymentSchedule: RowData[];
-    };
-  };
-}
-
-const Table: React.FC = () => {
-  const [tableData, setTableData] = useState<RowData[]>();
-  const [status, setStatus] = useState<"loading" | "success" | "error">(
-    "loading"
-  );
+const Table: React.FC<{ data: RowData[] }> = ({ data }) => {
   const [sortColumn, setSortColumn] = useState<keyof RowData | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  useEffect(() => {
-    getTableData();
-  }, []);
-
-  async function getTableData() {
-    setStatus("loading");
-    try {
-      const id = localStorage.getItem("id");
-      // if (!id) {
-      //   throw "No such id";
-      // }
-      console.log(Number(id));
-
-      const response: ResponseData = await axios.get(
-        `http://localhost:8080/admin/application/${Number(id)}`
-      );
-
-      setTableData(response.data.credit.paymentSchedule);
-      setStatus("success");
-      return response.data.credit.paymentSchedule;
-    } catch {
-      setStatus("error");
-      console.error("Failed to fetch table data");
-
-      return "error";
-    }
-  }
-
   const sortedData = useMemo(() => {
-    if (!sortColumn) return tableData;
+    if (!sortColumn) return data;
 
-    const newData = tableData ? [...tableData] : [];
+    const newData = data ? [...data] : [];
     newData.sort((a, b) => {
       const aValue = a[sortColumn];
       const bValue = b[sortColumn];
@@ -83,7 +33,7 @@ const Table: React.FC = () => {
       return sortDirection === "asc" ? comparison : -comparison;
     });
     return newData;
-  }, [tableData, sortColumn, sortDirection]);
+  }, [sortColumn, sortDirection]);
 
   const handleSort = useCallback(
     (column: keyof RowData) => {
@@ -97,22 +47,19 @@ const Table: React.FC = () => {
     [sortColumn, sortDirection]
   );
 
-
   const getSortIcon = (key: keyof RowData) => {
     return (
-      <img className="sort-indicator"
+      <img
+        className="sort-indicator"
         src={
-          sortColumn !== key || sortDirection === "asc"
-            ? ascending
-            : descending
+          sortColumn !== key || sortDirection === "asc" ? ascending : descending
         }
+        alt={sortDirection === "asc" ? "ascending" : "descending"}
       />
     );
   };
 
-  return status === "loading" ? (
-    <Loader />
-  ) : status === "success" ? (
+  return (
     <div className="table-wrapper">
       <table className="document-table">
         <thead>
@@ -170,8 +117,6 @@ const Table: React.FC = () => {
         </tbody>
       </table>
     </div>
-  ) : (
-    <div>Failed to fetch data</div>
   );
 };
 export default Table;

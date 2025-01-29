@@ -55,9 +55,11 @@ export const Button: React.FC<TProps> = ({
       onClick={scrollTo ? scroll : onClick ? onClick : undefined}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      {...(isDisabled ? {disabled:true} : {})}
+      {...(isDisabled ? { disabled: true } : {})}
     >
       {title}
     </button>
   );
 };
+
+export default Button;

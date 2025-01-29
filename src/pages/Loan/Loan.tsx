@@ -1,4 +1,6 @@
 import "./Loan.css";
+import React from 'react'
+
 import { CardDescriptionSection } from "../../components/CardDescriptionSection/CardDescriptionSection.tsx";
 import Tabs from "../../components/Tabs/Tabs.tsx";
 import GetCardSection from "../../components/GetCardSection/GetCardSection.tsx";

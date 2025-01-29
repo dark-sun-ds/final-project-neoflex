@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
 import { setIsOfferSubmitted } from "./LoanOffersSlice";
+import React from 'react'
 
 export interface TOfferProps {
   applicationId: number;
@@ -37,7 +38,7 @@ const LoanOffers: FC<{ offers: TOfferProps[] }> = ({ offers }) => {
   return !isSubmitted ? (
     !isLoading ? (
       error === "" ? (
-        <div className="loan-offers">
+        <div className="loan-offers" aria-label="loan-offers">
           {offers.map((offer, index) => (
             <LoanOfferItem key={index} offer={offer} dispatch={dispatch} />
           ))}

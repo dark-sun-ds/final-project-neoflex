@@ -105,6 +105,7 @@ const LoanCode = () => {
         <div className="code__inputs">
           {code.map((digit, index) => (
             <input
+            key={index}
               type="number"
               className="code__input"
               maxLength={1}

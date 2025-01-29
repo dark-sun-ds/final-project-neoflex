@@ -4,7 +4,7 @@ import loader from '/src/assets/loader.svg'
 const Loader = () => {
   return (
     <div className="loader">
-      <img src={loader} alt="" className="loader-img" />
+      <img src={loader} alt="Loader" className="loader-img" />
     </div>
   );
 }

@@ -3,15 +3,37 @@ import { Button } from "../../components/Button/Button";
 import Label from "../../components/Label/Label";
 import Table from "../../components/Table/Table";
 import "./LoanDocument.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 import Modal from "../../components/Modal/Modal";
+
+export interface RowData {
+  number: number;
+  date: string;
+  totalPayment: number;
+  interestPayment: number;
+  debtPayment: number;
+  remainingDebt: number;
+}
+
+interface ResponseData {
+  data: {
+    credit: {
+      paymentSchedule: RowData[];
+    };
+  };
+}
 
 const LoanDocument = () => {
   const [isAgree, setIsAgree] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState<RowData[]>([])
+
+useEffect(() => {
+  getTableData();
+}, [])
 
   const handleSetShowModal = () => {
     setShowModal(true);
@@ -36,6 +58,22 @@ const LoanDocument = () => {
     }
   }
 
+  async function getTableData() {
+    setIsLoading(true);
+    try {
+      const id = localStorage.getItem("id");
+      console.log(Number(id));
+      const response: ResponseData = await axios
+        .get(`http://localhost:8080/admin/application/${Number(id)}`)
+      setIsLoading(false);
+     
+      setData(response.data.credit.paymentSchedule as RowData[]);
+    } catch {
+      setIsLoading(false);
+      console.error("Failed to fetch table data");
+    }
+  }
+
   return (
     <>
       {!isSubmit ? (
@@ -46,7 +84,7 @@ const LoanDocument = () => {
                 <h2 className="heading__title">Payment Schedule</h2>
                 <p className="heading__subtitle">Step 3 of 5</p>
               </div>
-              <Table />
+              <Table data={data} />
               <div className="loan-buttons">
                 <Button
                   title="Deny"

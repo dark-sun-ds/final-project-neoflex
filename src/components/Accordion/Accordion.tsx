@@ -1,43 +1,49 @@
 import "./Accordion.css";
+import React from "react";
+import { FC } from "react";
+import up from "/src/assets/Expand_up.svg";
+import down from "/src/assets/Expand_down.svg";
+import { AppDispatch } from "../../store";
+import { closeOtherItems, toggleItem } from "./AccordionSlice";
 
-import { FC, useEffect } from "react";
-import AccordionItem from "./AccordionItem";
-import { AppDispatch, RootState } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
-import { setItems } from "./AccordionSlice";
 
-type TAccordion = {
-  accordionId: string;
-  data: {
-    id: string;
-    title: string;
-    content: string;
-    isOpen: boolean;
-  }[];
+export type TAccordionItemProps = {
+  id: string;
+  title: string;
+  content: string;
+  isOpen: boolean;
 };
 
-const Accordion: FC<TAccordion> = ({ accordionId, data }) => {
-  const dispatch: AppDispatch = useDispatch();
-  const accordionItems = useSelector(
-    (state: RootState) => state.accordion[accordionId]?.items
-  );
-
-  useEffect(() => {
-    dispatch(setItems({ accordionId, items: data }));
-  }, [data, dispatch]);
-
+const Accordion: FC<{
+  accordionId: string;
+  accordionData: TAccordionItemProps;
+  dispatch: AppDispatch;
+}> = ({ accordionId, accordionData, dispatch }) => {
+  function handleToggle(itemId: string) {
+    dispatch(closeOtherItems({ itemId }));
+    dispatch(toggleItem({ accordionId, itemId }));
+    console.log(dispatch(toggleItem({ accordionId, itemId })));
+    
+  }
 
   return (
-    <div className="accordion">
-      {accordionItems &&
-        accordionItems.length>0 && accordionItems.map((item) => (
-          <AccordionItem
-            key={item.id}
-            accordionId={accordionId}
-            accordionData={item}
-            dispatch={dispatch}
-          />
-        ))}
+    <div
+      key={accordionData.id}
+      className="accordion-item"
+      onClick={() => handleToggle(accordionData.id)}
+    >
+      <div className="accordion-title">
+        {accordionData.title}
+        <img
+          src={accordionData.isOpen ? up : down}
+          alt={accordionData.isOpen ? "up-arrow" : "down-arrow"}
+        />
+      </div>
+      {accordionData.isOpen ? (
+        <div className="accordion-content">{accordionData.content}</div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

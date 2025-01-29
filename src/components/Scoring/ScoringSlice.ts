@@ -8,19 +8,7 @@ export type scoringState = {
   isSubmitted: boolean;
   error: string;
 };
-// gender: "MALE",
-//     maritalStatus: "MARRIED",
-//     dependentAmount: 0,
-//     passportIssueDate: "string";
-//     passportIssueBranch: "string";
-//     employment: {
-//         employmentStatus: "UNEMPLOYED" | "SELF_EMPLOYED" | "EMPLOYED" | "BUSINESS_OWNER";
-//         employerINN: "number";
-//         salary: "number";
-//         position: "WORKER" | "MID_MANAGER" | "TOP_MANAGER" | "OWNER";
-//         workExperienceTotal: "number";
-//         workExperienceCurrent: "number";
-//     };
+
 const initialState: scoringState = {
   scoringData: {},
   isLoading: false,
@@ -62,8 +50,6 @@ const scoringSlice = createSlice({
     },
     setIsSubmitted: (state, action) => {
         state.isSubmitted = action.payload;
-        console.log(action.payload);
-        
     },
     setError: (state, action) => {
       state.error = action.payload;

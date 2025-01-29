@@ -9,8 +9,8 @@ const Divider: React.FC<{ isActive: boolean | null; parent: TParent }> = ({
 }) => {
   return (
     <>
-      {isActive === null ? <div className={"common " + parent}></div> : <></>}
-      {isActive ? <div className={"active " + parent}></div> : <></>}
+      {isActive === null ? <div className={"common " + parent} aria-hidden="true"></div> : <></>}
+      {isActive && <div className={"active " + parent} aria-hidden="true"></div>}
     </>
   );
 };

@@ -5,9 +5,19 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
+    "target": "ES6",
+    "module": "ESNext",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+      "assets/*": ["assets/*"]
+    },
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "node",
+    "types": ["@testing-library/jest-dom", "vitest/globals"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["**/*.test.*"]
 }

@@ -1,4 +1,6 @@
 import "./App.css";
+import React from 'react'
+
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer.tsx";
 import { Home } from "./pages/Home/Home";
@@ -28,7 +30,7 @@ function App() {
               element={<LoanSign />}
             ></Route>
             <Route
-              path="/loan/:id/document/sign/code"
+              path="/loan/:id/code"
               element={<LoanCode />}
             ></Route>
 

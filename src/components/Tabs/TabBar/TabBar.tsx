@@ -1,4 +1,5 @@
 import { FC } from "react";
+import React from 'react'
 import "./TabBar.css";
 import Divider from "../../Divider/Divider";
 import TabItem from "./TabItem";

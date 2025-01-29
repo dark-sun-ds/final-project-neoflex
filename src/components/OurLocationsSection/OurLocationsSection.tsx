@@ -1,4 +1,5 @@
 import './OurLocationsSection.css'
+import React from 'react'
 import locations from '../../assets/map.svg'
 export const OurLocationsSection = () => {
   return (

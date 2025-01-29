@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { init, NewsArticle } from "./Slider.ts";
+import { init, NewsArticle } from "./Slider";
 import "./Slider.css";
 import placeholder from "../../assets/man-reading-newspaper.jpg";
 import left from "../../assets/Transfer_long_left_light.svg";
@@ -17,7 +17,7 @@ export const Slider = () => {
   window.onload = () => {
     init(setArticles);
   };
-  
+
   useEffect(() => {
     // setState работает асинхронно, поэтому showHideBtns() вызывается здесь, а не в scrollSlider, иначе значение scrollCoord не изменится и prevBtn останется неактивной
     activateBtns();
@@ -68,17 +68,16 @@ export const Slider = () => {
   }
 
   return (
-    <section>
+    <section aria-label="slider">
       <div className="slider" ref={sliderRef}>
         {articles.map(({ title, description, url, urlToImage }, ind) => (
-          <a key={ind} href={url} className="slider_link">
+          <a key={ind} href={url} className="slider_link" aria-label="article">
             <article className="slider__item">
               <figure>
                 <img
                   src={urlToImage ? urlToImage : placeholder}
-                  alt=""
+                  alt={title}
                   className="slider__item-img"
-                  // ref={imagesRefs}
                 />
                 <figcaption className="slider__item-title">{title}</figcaption>
               </figure>

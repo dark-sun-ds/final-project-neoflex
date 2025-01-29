@@ -235,7 +235,7 @@ const Scoring = () => {
   );
 
   function onSubmit(data: TScoring) {
-    const preparedData = {...data, account: "11223344556677890000"}
+    const preparedData = { ...data, account: "11223344556677890000" };
     console.log({ preparedData });
     dispatch(submitScoring(preparedData));
   }
@@ -244,7 +244,6 @@ const Scoring = () => {
     const submitLS = localStorage.getItem("isSubmitScoring");
     if (submitLS) {
       dispatch(setIsSubmitted(JSON.parse(submitLS) as boolean));
-      
     } else {
       localStorage.setItem("isSubmitScoring", "false");
       dispatch(setIsSubmitted(false));
@@ -307,13 +306,18 @@ const Scoring = () => {
             </div>
           ))}
         </div>
-        <Button title="Continue" type="submit" padding="16px 38px" isDisabled={false} />
+        <Button
+          title="Continue"
+          type="submit"
+          padding="16px 38px"
+          isDisabled={false}
+        />
       </form>
     ) : (
       <Loader />
     )
   ) : (
-    <div className="scoring-end">
+    <div className="scoring-end" aria-label="scoring-end">
       <h1 className="scoring-end__title">
         Wait for a decision on the application
       </h1>

@@ -1,5 +1,6 @@
 import "./CardDescriptionSection.css";
-import { Button } from "../Button/Button";
+import React from "react";
+import Button from "../Button/Button";
 import Tooltip from "../Tooltip/Tooltip";
 export const CardDescriptionSection = () => {
   return (
@@ -39,7 +40,13 @@ export const CardDescriptionSection = () => {
         </p>
       </div>
       <div className="description-button">
-        <Button title="Apply for card" type="button" scrollTo="form" padding="16px" />
+        <Button
+          title="Apply for card"
+          type="button"
+          scrollTo="form"
+          padding="16px"
+          isDisabled={false}
+        />
       </div>
       <img
         src="/src/assets/card1.svg"
@@ -49,4 +56,3 @@ export const CardDescriptionSection = () => {
     </section>
   );
 };
-
